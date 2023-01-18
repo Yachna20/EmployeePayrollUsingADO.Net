@@ -1,5 +1,6 @@
 ﻿using EmployeePayroll.Repository;
 using System;
+using EmployeePayroll.Model;
 namespace EmployeePayroll
 {
     public class Program
@@ -9,7 +10,7 @@ namespace EmployeePayroll
             while (true)
             {
 
-                Console.WriteLine("1.Create database\n2.CreateTable");
+                Console.WriteLine("1.Create database\n2.CreateTable\n3.GetAllEmployee");
                 int option = Convert.ToInt32(Console.ReadLine());
                 EmployeeRepository employee = new EmployeeRepository();
                 switch (option)
@@ -21,7 +22,12 @@ namespace EmployeePayroll
                     case 2:
                        
                         employee.CreateTable();
+
                         Console.WriteLine("Table created successfully");
+                       
+                        break;
+                    case 3:
+                        EmployeeRepository.GetAllEmployee();
                         break;
 
                     default:
