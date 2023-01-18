@@ -10,7 +10,7 @@ namespace EmployeePayroll
             while (true)
             {
 
-                Console.WriteLine("1.Create database\n2.CreateTable\n3.GetAllEmployee");
+                Console.WriteLine("1.Create database\n2.CreateTable\n3.GetAllEmployee\n4.UpdateSalary");
                 int option = Convert.ToInt32(Console.ReadLine());
                 EmployeeRepository employee = new EmployeeRepository();
                 switch (option)
@@ -29,6 +29,13 @@ namespace EmployeePayroll
                     case 3:
                         EmployeeRepository.GetAllEmployee();
                         break;
+                    case 4:
+                        employee.UpdateSalary();
+                        Console.WriteLine("Updated salary");
+                        break;  
+                   
+                        
+                        
 
                     default:
                         Console.WriteLine("Please enter valid choice");

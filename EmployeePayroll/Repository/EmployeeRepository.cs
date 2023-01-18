@@ -11,12 +11,12 @@ namespace EmployeePayroll.Repository
 {
     public class EmployeeRepository
     {
-        
+
         SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-AKR4CHI;Initial catalog=EmployeePayroll;
                                   Integrated Security=true");
         public void CreateDatabase()
         {
-            
+
             SqlCommand cmd = new SqlCommand("Create database EmployeePayroll", connection);
             connection.Open();
             cmd.ExecuteNonQuery();
@@ -30,7 +30,7 @@ namespace EmployeePayroll.Repository
                 "Tax bigint,Net_Pay bigint,start_date date);", connection);
             connection.Open();
             cmd.ExecuteNonQuery();
-            
+
         }
         public static void GetAllEmployee()
         {
@@ -45,7 +45,7 @@ namespace EmployeePayroll.Repository
                     string Query = @"Select * from Employee";
                     SqlCommand cmd = new SqlCommand(Query, connection);
                     connection.Open();
-                    
+
                     SqlDataReader datareader = cmd.ExecuteReader();
                     if (datareader.HasRows)
                     {
@@ -59,11 +59,11 @@ namespace EmployeePayroll.Repository
                             empmodel.Basic_Pay = datareader.GetInt64(5);
                             empmodel.Deduction = datareader.GetInt64(6);
                             empmodel.TaxablePay = datareader.GetInt64(7);
-                            empmodel.Tax= datareader.GetInt64(8);
+                            empmodel.Tax = datareader.GetInt64(8);
                             empmodel.Net_Pay = datareader.GetInt64(9);
-                            Console.WriteLine(empmodel.Id + " " + empmodel.name+ " " + empmodel.PhoneNumber + " " +
-                            empmodel.Address + " "+ empmodel.Gender + " "+ empmodel.Basic_Pay + " "+ empmodel.Deduction +" "
-                            + empmodel.TaxablePay + " "+ empmodel.Tax + " "+ empmodel.Net_Pay);
+                            Console.WriteLine(empmodel.Id + " " + empmodel.name + " " + empmodel.PhoneNumber + " " +
+                            empmodel.Address + " " + empmodel.Gender + " " + empmodel.Basic_Pay + " " + empmodel.Deduction + " "
+                            + empmodel.TaxablePay + " " + empmodel.Tax + " " + empmodel.Net_Pay);
 
                         }
                         Console.WriteLine("Connection Established with database");
@@ -80,8 +80,38 @@ namespace EmployeePayroll.Repository
             }
 
         }
+        public string UpdateSalary()
+        {
+
+            try
+            {
+                SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-AKR4CHI;Initial catalog=EmployeePayroll;
+                                  Integrated Security=true");
+
+                using (connection)
+                {
+                    SqlCommand cmd = new SqlCommand(@"Update Employee set Basic_Pay=300000 where id=1"
+                                                     , connection);
+                    connection.Open();
+                    var objreader = cmd.ExecuteNonQuery();
+                    if (objreader >= 1)
+                    {
+                        return "Data Updated";
+                    }
+                    else
+                    {
+                        return "Data not updated";
+                    }
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
-
-
 }
 
