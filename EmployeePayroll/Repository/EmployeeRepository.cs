@@ -112,6 +112,47 @@ namespace EmployeePayroll.Repository
                 return ex.Message;
             }
         }
+        public string UpdateSalaryUsingProcedure(EmployeeModel model)
+        {
+
+            try
+            {
+                SqlConnection connection = new SqlConnection(@"Data Source=DESKTOP-AKR4CHI;Initial catalog=EmployeePayroll;
+                                  Integrated Security=true");
+
+                using (connection)
+                {
+                    SqlCommand cmd = new SqlCommand(@"UpdateTheSalary"
+                                                     , connection);
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@basicpay", model.Basic_Pay);
+                    cmd.Parameters.AddWithValue("@id", model.Id);
+                    
+                    connection.Open();
+                    var objreader = cmd.ExecuteNonQuery();
+                    if (objreader >= 1)
+                    {
+                        return "Data Updated";
+                    }
+                    else
+                    {
+                        return "Data not updated";
+                    }
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            finally 
+            { 
+                connection.Close();
+                Console.WriteLine("Connection is closed");
+            }
+        }
     }
 }
 
